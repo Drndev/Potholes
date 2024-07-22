@@ -8,6 +8,7 @@ from pyproj import Transformer
 
 # Set the PROJ_LIB environment variable to point to the location of the PROJ data files
 os.environ['PROJ_LIB'] = '/app/.apt/usr/share/proj'
+os.environ['PROJ_DIR'] = '/app/.apt/usr'
 os.environ['PROJ_INCDIR'] = '/app/.apt/usr/include'
 os.environ['PROJ_LIBDIR'] = '/app/.apt/usr/lib'
 
