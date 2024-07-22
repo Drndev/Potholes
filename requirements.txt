@@ -1,5 +1,6 @@
-dash
-pandas
-plotly
-pyproj
-gunicorn
+dash==2.6.2
+pandas==1.4.3
+plotly==5.10.0
+pyproj==3.3.1
+gunicorn==20.1.0
+
