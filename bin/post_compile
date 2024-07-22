@@ -1,1 +1,12 @@
+#!/bin/sh
+
+# Set environment variables for PROJ
+export PROJ_LIB=/app/.apt/usr/share/proj
+export PROJ_INCDIR=/app/.apt/usr/include
+export PROJ_LIBDIR=/app/.apt/usr/lib
+
+# Echo the variables to verify they are set
+echo "PROJ_LIB: $PROJ_LIB"
+echo "PROJ_INCDIR: $PROJ_INCDIR"
+echo "PROJ_LIBDIR: $PROJ_LIBDIR"
 
