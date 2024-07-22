@@ -1,9 +1,13 @@
+import os
 import dash
 from dash import dcc, html
 from dash.dependencies import Input, Output
 import plotly.express as px
 import pandas as pd
 from pyproj import Transformer
+
+# Set the PROJ_LIB environment variable to point to the location of the PROJ data files
+os.environ['PROJ_LIB'] = os.path.join(os.getcwd(), 'proj-data')
 
 # Your Mapbox access token
 MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoiZGFyZGV2IiwiYSI6ImNsdWNnbTltcDExdmYyam5pazdtOGZ1MGwifQ.IBDBUPNj10UCQ9jMTV-pjA"
@@ -33,10 +37,6 @@ def convert_coordinates(row):
 
 df[['Latitude', 'Longitude']] = df.apply(convert_coordinates, axis=1)
 df.dropna(subset=['Latitude', 'Longitude'], inplace=True)
-
-# Debug print to check if coordinates conversion is correct
-print("Data with converted coordinates:")
-print(df[['EASTING', 'NORTHING', 'Latitude', 'Longitude']].head())
 
 # Initialize the Dash app
 app = dash.Dash(__name__)
