@@ -34,10 +34,38 @@ def convert_coordinates(row):
 df[['Latitude', 'Longitude']] = df.apply(convert_coordinates, axis=1)
 df.dropna(subset=['Latitude', 'Longitude'], inplace=True)
 
+# Debug print to check if coordinates conversion is correct
+print("Data with converted coordinates:")
+print(df[['EASTING', 'NORTHING', 'Latitude', 'Longitude']].head())
+
 # Initialize the Dash app
 app = dash.Dash(__name__)
 server = app.server
 
 # Define the layout of the app
 app.layout = html.Div([
-    html.H1("Mapping of Pothole Enquiries in Nor
+    html.H1("Mapping of Pothole Enquiries in Northern Ireland", style={'font-family': 'Roboto', 'font-weight': '500', 'textAlign': 'center'}),
+    dcc.Graph(id="map", style={'height': '90vh'}),
+    dcc.Graph(id="heatmap", style={'height': '90vh'})
+], style={'padding': '20px', 'backgroundColor': '#f0f0f0', 'font-family': 'Roboto', 'margin': '0 auto', 'width': '90%'})
+
+
+# Callback to update the map and heatmap
+@app.callback(
+    [Output('map', 'figure'),
+     Output('heatmap', 'figure')],
+    Input('map', 'id')
+)
+def update_maps(_):
+    scatter_map = px.scatter_mapbox(df, lat="Latitude", lon="Longitude", zoom=7.4, mapbox_style="mapbox://styles/mapbox/satellite-streets-v12")
+    scatter_map.update_layout(mapbox_center={"lat": 54.637039, "lon": -6.627607}, margin={"r":0, "t":0, "l":0, "b":0}, autosize=True)
+    
+    heatmap = px.density_mapbox(df, lat="Latitude", lon="Longitude", radius=10, center={"lat": 54.637039, "lon": -6.627607},
+                                zoom=7.4, mapbox_style="mapbox://styles/mapbox/satellite-streets-v12")
+    heatmap.update_layout(margin={"r":0, "t":0, "l":0, "b":0}, autosize=True)
+    
+    return scatter_map, heatmap
+
+# Run the app
+if __name__ == '__main__':
+    app.run_server(debug=True, port=8053)
