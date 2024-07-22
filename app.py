@@ -8,6 +8,8 @@ from pyproj import Transformer
 
 # Set the PROJ_LIB environment variable to point to the location of the PROJ data files
 os.environ['PROJ_LIB'] = '/app/.apt/usr/share/proj'
+os.environ['PROJ_INCDIR'] = '/app/.apt/usr/include'
+os.environ['PROJ_LIBDIR'] = '/app/.apt/usr/lib'
 
 # Your Mapbox access token
 MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoiZGFyZGV2IiwiYSI6ImNsdWNnbTltcDExdmYyam5pazdtOGZ1MGwifQ.IBDBUPNj10UCQ9jMTV-pjA"
